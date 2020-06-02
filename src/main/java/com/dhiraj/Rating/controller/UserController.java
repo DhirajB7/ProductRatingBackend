@@ -19,105 +19,108 @@ import com.dhiraj.Rating.repository.UserRepository;
 @RequestMapping(value = "/user")
 
 public class UserController {
-	
+
 	UserRepository userRepository;
 	ProductRepository productRepository;
-	
-
 
 	public UserController(UserRepository userRepository, ProductRepository productRepository) {
 		this.userRepository = userRepository;
 		this.productRepository = productRepository;
 	}
 
-	
 	@PostMapping("")
-    public String addUser(@RequestBody User user) {
-    	
-		userRepository.save(user);
-		
-		return user.getUsername()+" added";
-    	
-    }
+	public String addUser(@RequestBody User user) {
+
+		if (userRepository.existsById(user.getUsername())) {
+
+			return "USER ALREADY IN DB";
+
+		} else {
+
+			userRepository.save(user);
+
+			return user.getUsername() + " added";
+
+		}
+
+	}
 	
+
 	@GetMapping("")
-	public List<User> getAllUser(){
-		
+	public List<User> getAllUser() {
+
 		return userRepository.findAll();
-		
+
 	}
-	
+
 	@GetMapping("/{username}")
-	public User getOneUser(@PathVariable String username){
-		
+	public User getOneUser(@PathVariable String username) {
+
 		return userRepository.findById(username).get();
-		
+
 	}
-	
+
 	@PutMapping("/{username}/{productName}")
-	public String addProductToUser(@PathVariable String username,@PathVariable String productName) {
+	public String addProductToUser(@PathVariable String username, @PathVariable String productName) {
 		
-		
-		User user = userRepository.findById(username).get();
-		user.setListOfProduct(productName);
-		userRepository.save(user);
-		
-		
-		return "PRODUCT "+productName+" added to User "+username;
-		
-		
-	}
-	
-	@PutMapping("/{username}/{productName}/{rating}")
-	public String addRatingToAProduct(@PathVariable String username,@PathVariable String productName,@PathVariable int rating) {
-		
-		
-		Product product = productRepository.findById(productName).get();
-		
-		if(rating==1) {
+		if(productRepository.existsById(productName)) {
 			
-			product.setNumberOfUsersRetedOne();
-			
-			System.out.println("1");
-			
-		}else if(rating==2) {
-			
-			product.setNumberOfUsersRetedTwo();
-			
-			System.out.println("2");
-			
-		}else if(rating==3) {
-			
-			product.setNumberOfUsersRetedThree();
-			
-			System.out.println("3");
-			
-		}else if(rating==4) {
-			
-			product.setNumberOfUsersRetedFour();
-			
-			System.out.println("4");
-			
-		}else if(rating==5) {
-			
-			product.setNumberOfUsersRetedFive();
-			
-			System.out.println("5");
+			return "PRODUCT DOES NOT EXIXTS, ADD TO PRODUCT TO PRODUCT COLLECTIONS.";
 			
 		}else {
 			
-			System.out.println("WRONG RATING ENTRED");   
+			User user = userRepository.findById(username).get();
+			user.setListOfProduct(productName);
+			userRepository.save(user);
+
+			return "PRODUCT " + productName + " added to User " + username;
 			
 		}
+
 		
-		productRepository.save(product);
-		
-		return "CHECK DB";
-		
-		
-		
-		
+
 	}
-	
-	
+
+	@PutMapping("/{username}/{productName}/{rating}")
+	public String addRatingToAProduct(@PathVariable String username, @PathVariable String productName,
+			@PathVariable int rating) {
+
+		Product product = productRepository.findById(productName).get();
+
+		if (rating == 1) {
+
+			product.setNumberOfUsersRetedOne();
+
+
+		} else if (rating == 2) {
+
+			product.setNumberOfUsersRetedTwo();
+
+
+		} else if (rating == 3) {
+
+			product.setNumberOfUsersRetedThree();
+
+
+		} else if (rating == 4) {
+
+			product.setNumberOfUsersRetedFour();
+
+
+		} else if (rating == 5) {
+
+			product.setNumberOfUsersRetedFive();
+			
+		} else {
+
+			System.out.println("WRONG RATING ENTRED, Request Sent again to user.");
+
+		}
+
+		productRepository.save(product);
+
+		return "Ratings updated for "+productName;
+
+	}
+
 }

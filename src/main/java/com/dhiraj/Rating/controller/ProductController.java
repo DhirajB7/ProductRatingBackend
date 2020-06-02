@@ -15,40 +15,43 @@ import com.dhiraj.Rating.repository.ProductRepository;
 @RestController
 @RequestMapping(value = "/product")
 public class ProductController {
-	
+
 	ProductRepository productRepository;
-	
-	
-	
+
 	public ProductController(ProductRepository productRepository) {
 		this.productRepository = productRepository;
 	}
 
-
-
 	@PostMapping("")
 	public String insertProduct(@RequestBody Product product) {
 
-			productRepository.save(product);
+		if (productRepository.existsById(product.getProductId())) {
 			
-			return product.getProductId() +" ADDED.";
-		
+			return "PRODUCT ALREADY IN DB.";
+
+		} else {
+				
+			productRepository.save(product);
+
+			return product.getProductId() + " ADDED.";
+			
+		}
+
 	}
 	
+
 	@GetMapping("")
-	public List<Product> getAllProducts(){
-		
+	public List<Product> getAllProducts() {
+
 		return productRepository.findAll();
-		
+
 	}
-	
+
 	@GetMapping("/{productId}")
-	public Product getOneProducts(@PathVariable String productId){
-		
+	public Product getOneProducts(@PathVariable String productId) {
+
 		return productRepository.findById(productId).get();
-		
+
 	}
-	
-	
 
 }

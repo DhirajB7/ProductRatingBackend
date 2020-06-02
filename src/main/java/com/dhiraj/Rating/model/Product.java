@@ -30,7 +30,7 @@ public class Product {
 	public Product(String productId, String productName, double price, String productDescription,
 			int numberOfUsersRetedOne, int numberOfUsersRetedTwo, int numberOfUsersRetedThree,
 			int numberOfUsersRetedFour, int numberOfUsersRetedFive) {
-		this.productId = productId;
+		this.productId = productId.toLowerCase();
 		this.productName = productName;
 		this.price = price;
 		this.productDescription = productDescription;

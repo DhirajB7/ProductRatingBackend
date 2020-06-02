@@ -1,5 +1,6 @@
 package com.dhiraj.Rating.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -12,7 +13,7 @@ public class User {
 	@Id
 	String username;
 	
-	List<String> listOfProduct;
+	List<String> listOfProduct = new ArrayList<String>();
 
 	public String getUsername() {
 		return username;
