@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collation = "Users")
+@Document(collection  = "Users")
 public class User {
+	
 	
 	@Id
 	String username;
 	
-	List<Product> listOfProduct;
-	
+	List<String> listOfProduct;
 
 	public String getUsername() {
 		return username;
@@ -22,13 +22,18 @@ public class User {
 		this.username = username;
 	}
 
-	public List<Product> getListOfProduct() {
+	public List<String> getListOfProduct() {
 		return listOfProduct;
 	}
 
-	public void setListOfProduct(List<Product> listOfProduct) {
-		this.listOfProduct = listOfProduct;
+	public void setListOfProduct(String productName) {
+		this.listOfProduct.add(productName);
 	}
+
+	
+	
+	
+	
 	
 
 }
