@@ -1,0 +1,7 @@
+com\dhiraj\Rating\controller\ProductController.class
+com\dhiraj\Rating\repository\ProductRepository.class
+com\dhiraj\Rating\DesignRatingApplication.class
+com\dhiraj\Rating\model\Product.class
+com\dhiraj\Rating\model\User.class
+com\dhiraj\Rating\controller\UserController.class
+com\dhiraj\Rating\repository\UserRepository.class
