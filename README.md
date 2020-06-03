@@ -13,7 +13,7 @@
 ## Execution
 
 1) Run mongod
-2) Run project on IDE or cmd java -jar "fileName".
+2) Run project on IDE or cmd java -jar "fileName". [ jar can be found inside target folder ]
 
 ## API
 
