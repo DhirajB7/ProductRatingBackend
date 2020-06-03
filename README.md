@@ -60,3 +60,7 @@ curl --location --request GET 'http://localhost:8080/product'
 
 curl --location --request GET 'http://localhost:8080/product/plastic_chair'
 
+
+## Diagram 
+
+![image_comes_here](image.jpeg)
